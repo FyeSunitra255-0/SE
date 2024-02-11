@@ -29,6 +29,8 @@ services:
     networks:
       - prestashop_network
     volumes:
+      - ./app/controllers:/var/www/html/controllers 
+      - ./app/modules:/var/www/html/modules
       - ./app/modules/testModule:/var/www/html/modules/testModule # To develop module
       - ./app/themes/classic:/var/www/html/themes/classic # To develop theme
       - ./app/img:/var/www/html/img # To store image data

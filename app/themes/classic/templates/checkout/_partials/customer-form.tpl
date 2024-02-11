@@ -24,6 +24,7 @@
  *}
 {extends "customer/_partials/customer-form.tpl"}
 
+{*
 {block "form_field"}
   {if $field.name === 'password' and $guest_allowed}
       <p class="form-informations">
@@ -48,3 +49,4 @@
         {l s='Continue' d='Shop.Theme.Actions'}
     </button>
 {/block}
+*}
