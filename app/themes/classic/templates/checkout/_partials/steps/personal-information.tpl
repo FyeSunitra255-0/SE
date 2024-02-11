@@ -1,8 +1,8 @@
-
 {extends file='checkout/_partials/steps/checkout-step.tpl'}
 
 {block name='step_content'}
   {hook h='displayPersonalInformationTop' customer=$customer}
+
   {if $customer.is_logged && !$customer.is_guest}
 
     <p class="identity">
@@ -47,7 +47,6 @@
     </div>
 
   {else}
-  {* ปิด sign in PERSONAL INFORMATION
     <ul class="nav nav-inline my-2" role="tablist">
       <li class="nav-item">
         <a
@@ -84,9 +83,7 @@
         </a>
       </li>
     </ul>
-    *}
 
-    {*ปิดช่องให้กรอก PERSONAL INFORMATION *}
     <div class="tab-content">
       <div class="tab-pane {if !$show_login_form}active{/if}" id="checkout-guest-form" role="tabpanel" {if $show_login_form}aria-hidden="true"{/if}>
         {render file='checkout/_partials/customer-form.tpl' ui=$register_form guest_allowed=$guest_allowed}
@@ -95,7 +92,6 @@
         {render file='checkout/_partials/login-form.tpl' ui=$login_form}
       </div>
     </div>
-    
 
 
   {/if}
