@@ -81,78 +81,82 @@
         </div>
       {/foreach}
     {foreachelse}
-      <p class="alert alert-danger">{l s='Unfortunately, there are no payment method available.' d='Shop.Theme.Checkout'}</p>
+      <p class="alert alert-danger">{l s='Unfortunately, there are no payment methods available.' d='Shop.Theme.Checkout'}</p>
     {/foreach}
   </div>
 
-  {if $conditions_to_approve|count}
-    <p class="ps-hidden-by-js">
-      {* At the moment, we're not showing the checkboxes when JS is disabled
-         because it makes ensuring they were checked very tricky and overcomplicates
-         the template. Might change later.
-      *}
-      {l s='By confirming the order, you certify that you have read and agree with all of the conditions below:' d='Shop.Theme.Checkout'}
-    </p>
+  {* อัพไฟล์ *}
+  <div id="uploadFileSection" class="ps-upload-file-section">
+    <label for="fileUpload">{l s='Upload Image' d='Shop.Theme.Checkout'}</label>
+    <input type="file" id="fileUpload" name="fileUpload" required>
+  </div>
 
-    <form id="conditions-to-approve" class="js-conditions-to-approve" method="GET">
-      <ul>
-        {foreach from=$conditions_to_approve item="condition" key="condition_name"}
-          <li>
-            <div class="float-xs-left">
-              <span class="custom-checkbox">
-                <input  id    = "conditions_to_approve[{$condition_name}]"
-                        name  = "conditions_to_approve[{$condition_name}]"
-                        required
-                        type  = "checkbox"
-                        value = "1"
-                        class = "ps-shown-by-js"
-                >
-                <span><i class="material-icons rtl-no-flip checkbox-checked">&#xE5CA;</i></span>
-              </span>
-            </div>
-            <div class="condition-label">
-              <label class="js-terms" for="conditions_to_approve[{$condition_name}]">
-                {$condition nofilter}
-              </label>
-            </div>
-          </li>
-        {/foreach}
-      </ul>
-    </form>
-  {/if}
+  {* Add tax invoice selection radio button and customer information form *}
+  <div class="tax-invoice-section">
+    <label for="taxInvoiceOption">{l s='Do you want to receive a tax invoice?' d='Shop.Theme.Checkout'}</label>
+    <input type="radio" id="taxInvoiceOption" name="taxInvoiceOption" value="yes" required>
+    <label for="taxInvoiceOption">{l s='Yes' d='Shop.Theme.Checkout'}</label>
+    <input type="radio" id="taxInvoiceOption" name="taxInvoiceOption" value="no" required>
+    <label for="taxInvoiceOption">{l s='No' d='Shop.Theme.Checkout'}</label>
+  </div>
 
-  {hook h='displayCheckoutBeforeConfirmation'}
+  <div class="customer-information-form" id="customerInformationForm" style="display: none;">
+    <label for="customerName">{l s='Name' d='Shop.Theme.Checkout'}</label>
+    <input type="text" id="customerName" name="customerName" required>
+    <br>
+    <label for="customerSurname">{l s='Surname' d='Shop.Theme.Checkout'}</label>
+    <input type="text" id="customerSurname" name="customerSurname" required>
+    <br>
+    <label for="customerAddress">{l s='Address' d='Shop.Theme.Checkout'}</label>
+    <textarea id="customerAddress" name="customerAddress" required></textarea>
+    <br>
+    <label for="customerPhoneNumber">{l s='Phone Number' d='Shop.Theme.Checkout'}</label>
+    <input type="tel" id="customerPhoneNumber" name="customerPhoneNumber" required>
+    <br>
+    <label for="taxId">{l s='Tax ID' d='Shop.Theme.Checkout'}</label>
+    <input type="text" id="taxId" name="taxId" required>
+  </div>
 
-  {if $show_final_summary}
-    {include file='checkout/_partials/order-final-summary.tpl'}
-  {/if}
-
+  {* ปุ่ม PLACE ORDER *}
   <div id="payment-confirmation" class="js-payment-confirmation">
     <div class="ps-shown-by-js">
-      <button type="submit" class="btn btn-primary center-block{if !$selected_payment_option} disabled{/if}">
+      <button type="submit" class="btn btn-primary center-block" id="placeOrderButton" disabled>
         {l s='Place order' d='Shop.Theme.Checkout'}
       </button>
-      {if $show_final_summary}
-        <article class="alert alert-danger mt-2 js-alert-payment-conditions" role="alert" data-alert="danger">
-          {l
-            s='Please make sure you\'ve chosen a [1]payment method[/1] and accepted the [2]terms and conditions[/2].'
-            sprintf=[
-              '[1]' => '<a href="#checkout-payment-step">',
-              '[/1]' => '</a>',
-              '[2]' => '<a href="#conditions-to-approve">',
-              '[/2]' => '</a>'
-            ]
-            d='Shop.Theme.Checkout'
-          }
-        </article>
-      {/if}
-    </div>
-    <div class="ps-hidden-by-js">
-      {if $selected_payment_option and $all_conditions_approved}
-        <label for="pay-with-{$selected_payment_option}">{l s='Order with an obligation to pay' d='Shop.Theme.Checkout'}</label>
-      {/if}
     </div>
   </div>
+
+  <script>
+    // Add an event listener to the file input
+    document.getElementById('fileUpload').addEventListener('change', function() {
+      // Get the file input value
+      var fileValue = this.value;
+      
+      // Get the Place order button
+      var placeOrderButton = document.getElementById('placeOrderButton');
+
+      // Enable or disable the Place order button based on whether a file has been uploaded
+      placeOrderButton.disabled = (fileValue === '');
+    });
+
+    // Add an event listener to the radio button
+    document.getElementById('taxInvoiceOption').addEventListener('change', function() {
+      // Get the value of the selected option
+      var selectedValue = this.value;
+      
+      // Get the customer information form container
+      var customerInformationForm = document.getElementById('customerInformationForm');
+
+      // Display or hide the customer information form based on the selected value
+      if (selectedValue === 'yes') {
+        customerInformationForm.style.display = 'block';
+      } else {
+        customerInformationForm.style.display = 'none';
+      }
+    });
+  </script>
+
+  {hook h='displayCheckoutBeforeConfirmation'}
 
   {hook h='displayPaymentByBinaries'}
 {/block}
