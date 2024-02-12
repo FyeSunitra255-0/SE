@@ -84,13 +84,48 @@
       <p class="alert alert-danger">{l s='Unfortunately, there are no payment methods available.' d='Shop.Theme.Checkout'}</p>
     {/foreach}
   </div>
+  {* This is the way an option should be selected when Javascript is enabled *}
+  <span class="custom-radio float-xs-left">
+    <input
+      class="ps-shown-by-js"
+      id="bankPaymentOption"
+      name="paymentMethod"
+      type="radio"
+      value="bankTransfer"
+    >
+    <span></span>
+  </span>
+  <label for="bankPaymentOption">Pay with Bank Transfer</label>
+  <br>
+
+  <span class="custom-radio float-xs-left">
+    <input
+      class="ps-shown-by-js"
+      id="qrCodePaymentOption"
+      name="paymentMethod"
+      type="radio"
+      value="qrCode"
+    >
+    <span></span>
+  </span>
+  <label for="qrCodePaymentOption">Pay with QR Code</label>
+  <br>
+
+  <div id="selectedBankDetails" style="display: none;">
+
+  </div>
+
+  <div id="selectedQRCodeDetails" style="display: none;">
+    <!-- สร้าง QR Code ที่นี่ -->
+  </div>
+
 
   {* อัพไฟล์ *}
   <div id="uploadFileSection" class="ps-upload-file-section">
     <label for="fileUpload">{l s='Upload Image' d='Shop.Theme.Checkout'}</label>
     <input type="file" id="fileUpload" name="fileUpload" required>
   </div>
-
+  
   {* Add tax invoice selection radio button and customer information form *}
   <div class="tax-invoice-section">
     <label for="taxInvoiceOption">{l s='Do you want to receive a tax invoice?' d='Shop.Theme.Checkout'}</label>
