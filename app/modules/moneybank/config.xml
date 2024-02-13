@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+    <name>moneybank</name>
+    <displayName><![CDATA[Moneybank]]></displayName>
+    <version><![CDATA[1.0.0]]></version>
+    <description><![CDATA[The fastest way to pay!]]></description>
+    <author><![CDATA[group4]]></author>
+    <tab><![CDATA[]]></tab>
+    <is_configurable>0</is_configurable>
+    <need_instance>1</need_instance>
+</module>

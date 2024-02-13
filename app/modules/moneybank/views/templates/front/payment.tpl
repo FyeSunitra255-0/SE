@@ -2,7 +2,7 @@
 {block name="content"}
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <div class="container mt-4">
-    <form action="{$payment_option->getAction()} method="POST" action="process_payment.php" style="background-color: white; padding: 20px; margin-bottom: 20px;">
+    <form action="{$payment_option->getAction()} method="POST" action="process_payment.php">
       <!-- Payment Method -->
       <!-- Payment Method -->
       <div class="form-group">
@@ -48,7 +48,7 @@
         </div>
       </div>
       <div class="form-group" id="qrCode" style="display: none">
-        <img src='https://www.i-pic.info/i/kUPv652615.jpg' style="width: 70%; height= 70%;">
+        <img src="qr.jpg" alt="QR Code" style="width: 50%; height: 50%" />
       </div>
 
       <!-- Tax Invoice -->
