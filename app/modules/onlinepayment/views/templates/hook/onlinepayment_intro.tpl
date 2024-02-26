@@ -1,5 +1,5 @@
 <section>
   <p>
-    Pay by QR Code and Bank Transfer.
+    Promptpay
   </p>
 </section>
